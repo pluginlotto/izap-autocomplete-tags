@@ -16,3 +16,4 @@
 
 ?>
 <script type="text/javascript" src="<?php echo $vars['url']?>mod/izap-autocomplete-tags/vendors/jquery.autocomplete.js"></script>
+<link href="<?php $vars['url']; ?>mod/izap-autocomplete-tags/vendors/jquery.autocomplete.css" rel="stylesheet" type="text/css">

@@ -12,7 +12,3 @@
 * For discussion about corresponding plugins, visit http://www.pluginlotto.com/pg/forums/
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
-
-
-?>
-<link href="<?php $vars['url']; ?>mod/izap-autocomplete-tags/vendors/jquery.autocomplete.css" rel="stylesheet" type="text/css">
