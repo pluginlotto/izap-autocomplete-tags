@@ -13,8 +13,8 @@
 * Follow us on http://facebook.com/PluginLotto and http://twitter.com/PluginLotto
  */
 
-elgg_register_js('mod/' . GLOBAL_IZAP_AUTOCOMPLEATE_TAGS_PLUGIN . '/vendors/jquery.autocomplete.js', GLOBAL_IZAP_AUTOCOMPLEATE_TAGS_PLUGIN);
-elgg_register_css('mod/' . GLOBAL_IZAP_AUTOCOMPLEATE_TAGS_PLUGIN . '/vendors/jquery.autocomplete.css', GLOBAL_IZAP_AUTOCOMPLEATE_TAGS_PLUGIN);
+elgg_load_css('izap.autocomplete.css');
+elgg_load_js('izap.autocomplete');
 
 if(!empty($vars['internalid'])) {
   $default_tag_id = $vars['internalid'];
@@ -63,7 +63,7 @@ $add_new_tags  = IzapBase::pluginSetting(array(
 }?>
 <script language="javascript" type="text/javascript">
   $(document).ready(function(){
-    $('#<?php echo $default_tag_id ?>').autocomplete([<?php echo $tag_string;?>],
+    $('#<?php echo $default_tag_id ?>').autocomplete(<?php echo $tag_string;?>,
     {
       width: 320,
       max: 4,

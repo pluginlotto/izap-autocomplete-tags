@@ -29,16 +29,18 @@ elgg_register_event_handler('init', 'system', 'izap_autocomplete_tags_init');
 function izap_autocomplete_tags_init() {
   // start plugin
   izap_plugin_init(GLOBAL_IZAP_AUTOCOMPLEATE_TAGS_PLUGIN);
+elgg_register_js('izap.autocomplete', 'mod/' . GLOBAL_IZAP_AUTOCOMPLEATE_TAGS_PLUGIN . '/vendors/jquery.autocomplete.js');
+elgg_register_css('izap.autocomplete.css' ,  'mod/' . GLOBAL_IZAP_AUTOCOMPLEATE_TAGS_PLUGIN . '/vendors/jquery.autocomplete.css');
 }
 
 function autocomplete_tags() {
-  $tags = elgg_get_tags();
+  $tags = elgg_get_tags(array(
+      'limit' => 1000
+  ));
 
   foreach($tags as $key=>$val) {
-    $tag[] = '"' . $val->tag .' ('.$val->total.')'. '"';
+    $tag[] = $val->tag .' ('.$val->total.')';
   }
 
-  $string = implode(', ', $tag);
-
-  return $string;
+  return json_encode($tag);
 }
