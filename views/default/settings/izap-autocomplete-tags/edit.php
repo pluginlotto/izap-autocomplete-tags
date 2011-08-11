@@ -17,9 +17,14 @@ $value = $vars['entity']->autocompletetags;
 if(!in_array($value, array('yes', 'no'))) {
   $value = 'yes';
 }
-?>
 
-<select name="params[autocompletetags]">
-  <option value="no" <?php if($value != 'yes'){ echo "selected"; } ?>><?php echo elgg_echo('izap_autotags:no');?></option>
-  <option value="yes" <?php if($value == 'yes'){ echo "selected"; } ?>><?php echo elgg_echo('izap_autotags:yes');?></option>
-</select>
+    echo elgg_view('input/pulldown', array(
+    'internalname' => 'params[autocompletetags]',
+    'value' =>$value,
+    'options_values' => array(
+            'no' => elgg_echo('izap_autotags:no'),
+            'yes' => elgg_echo('izap_autotags:yes'),
+    ),
+    ));
+
+

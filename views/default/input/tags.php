@@ -56,8 +56,18 @@ $add_new_tags  = IzapBase::pluginSetting(array(
                 'value'=> 'yes',
                 ));
 
-?>
-<input type="text" <?php if ($disabled) echo ' disabled="yes" '; ?><?php echo $vars['js']; ?> name="<?php echo $vars['internalname']; ?>" <?php if (isset($default_tag_id)) echo "id=\"{$default_tag_id}\""; ?> value="<?php echo htmlentities($tags, ENT_QUOTES, 'UTF-8'); ?>" class="<?php echo $class; ?>"/>
+if ($disabled)$disab= 'disabled="yes" ';
+echo izapBase::input('text',array('input_title'=> '' ,
+                                         'internalname'=> $vars['internalname'] ,
+                                         'value'=>htmlentities($tags, ENT_QUOTES, 'UTF-8'),
+                                         'id'=> $default_tag_id,
+                                         'class'=>$class,
+                                         $vars['js'],
+                                         $disab
+                                 )
+     );
+ ?>
+
 <?php if($add_new_tags == 'no' && !elgg_is_admin_logged_in()) {
   echo '<em><small>' . elgg_echo('izap_autotags:not_allowed') . '</small></em>';
 }?>
