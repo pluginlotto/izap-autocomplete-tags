@@ -14,7 +14,7 @@
  */
 
 elgg_load_css('izap.autocomplete.css');
-elgg_load_js('izap.autocomplete');
+//elgg_load_js('izap.autocomplete');
 
 if(!empty($vars['internalid'])) {
   $default_tag_id = $vars['internalid'];
@@ -61,7 +61,7 @@ echo izapBase::input('text',array('input_title'=> '' ,
                                          'internalname'=> $vars['internalname'] ,
                                          'value'=>htmlentities($tags, ENT_QUOTES, 'UTF-8'),
                                          'id'=> $default_tag_id,
-                                         'class'=>$class,
+                                         'class'=>'ui-autocomplete-input',
                                          $vars['js'],
                                          $disab
                                  )
@@ -73,7 +73,7 @@ echo izapBase::input('text',array('input_title'=> '' ,
 }?>
 <script language="javascript" type="text/javascript">
   $(document).ready(function(){
-    $('#<?php echo $default_tag_id ?>').autocomplete(<?php echo $tag_string;?>,
+    $('#<?php echo $default_tag ?>').autocomplete(<?php echo $tag_string;?>,
     {
       width: 320,
       max: 4,
@@ -96,3 +96,53 @@ echo izapBase::input('text',array('input_title'=> '' ,
     })
   });
 </script>
+
+
+<meta charset="utf-8">
+	<script>
+	$(function() {
+		var availableTags =<?php echo $tag_string?> ;
+		function split( val ) {
+			return val.split( /,\s*/ );
+		}
+		function extractLast( term ) {
+			return split( term ).pop();
+		}
+
+		$( "#<?php echo $default_tag_id ?>" )
+			// don't navigate away from the field on tab when selecting an item
+			.bind( "keydown", function( event ) {
+				if ( event.keyCode === $.ui.keyCode.TAB &&
+						$( this ).data( "autocomplete" ).menu.active ) {
+					event.preventDefault();
+				}
+			})
+      
+			.autocomplete({
+				minLength: 0,
+				source: function( request, response ) {  
+					// delegate back to autocomplete, but extract the last term
+					response( $.ui.autocomplete.filter(
+						availableTags, extractLast( request.term ) ) );
+				},
+				focus: function() {
+					// prevent value inserted on focus
+					return false;
+				},
+ 
+				select: function( event, ui ) {
+					var terms = split( this.value );
+					// remove the current input
+					terms.pop();
+					// add the selected item
+          formatted_input=ui.item.value.split( '(');
+					terms.push( formatted_input[0] );
+					// add placeholder to get the comma-and-space at the end
+					terms.push( "" );
+					this.value = terms.join( ", " );
+					return false;
+				}
+			});
+	});
+	</script>
+
