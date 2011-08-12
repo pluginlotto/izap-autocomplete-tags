@@ -71,37 +71,15 @@ echo izapBase::input('text',array('input_title'=> '' ,
 <?php if($add_new_tags == 'no' && !elgg_is_admin_logged_in()) {
   echo '<em><small>' . elgg_echo('izap_autotags:not_allowed') . '</small></em>';
 }?>
-<script language="javascript" type="text/javascript">
-  $(document).ready(function(){
-    $('#<?php echo $default_tag ?>').autocomplete(<?php echo $tag_string;?>,
-    {
-      width: 320,
-      max: 4,
-      highlight: false,
-      matchContains: "word",
-      autoFill: true,
-      mustMatch: <?php if($add_new_tags !== 'no' || elgg_is_admin_logged_in()) {
-  echo 'false';
-}else {
-  echo 'true';
-} ?>,
-      multiple: true,
-      multipleSeparator: ", ",
-      scroll: true,
-      scrollHeight: 300,
-      formatResult: function(data) {
-        var ary = data[0].split('(');
-        return ary[0];
-      }
-    })
-  });
-</script>
-
 
 <meta charset="utf-8">
 	<script>
 	$(function() {
+    var mustmatch;
+    mustmatch=true;
 		var availableTags =<?php echo $tag_string?> ;
+    <?php if($add_new_tags !== 'no' || elgg_is_admin_logged_in()) { ?>
+       mustmatch=false;<? }?>
 		function split( val ) {
 			return val.split( /,\s*/ );
 		}
@@ -129,7 +107,13 @@ echo izapBase::input('text',array('input_title'=> '' ,
 					// prevent value inserted on focus
 					return false;
 				},
- 
+        change:function(event,ui){
+          if(mustmatch){
+            if(!ui.item){
+              $( "#<?php echo $default_tag_id ?>" ).val('');
+            }
+          }
+        },
 				select: function( event, ui ) {
 					var terms = split( this.value );
 					// remove the current input
