@@ -16,8 +16,8 @@
 elgg_load_css('izap.autocomplete.css');
 //elgg_load_js('izap.autocomplete');
 
-if(!empty($vars['internalid'])) {
-  $default_tag_id = $vars['internalid'];
+if(!empty($vars['id'])) {
+  $default_tag_id = $vars['id'];
 }else {
   $default_tag_id = "izap_autocomplete_tags";
 }
@@ -58,7 +58,7 @@ $add_new_tags  = IzapBase::pluginSetting(array(
 
 if ($disabled)$disab= 'disabled="yes" ';
 echo izapBase::input('text',array('input_title'=> '' ,
-                                         'internalname'=> $vars['internalname'] ,
+                                         'name'=> $vars['name'] ,
                                          'value'=>htmlentities($tags, ENT_QUOTES, 'UTF-8'),
                                          'id'=> $default_tag_id,
                                          'class'=>'ui-autocomplete-input',
