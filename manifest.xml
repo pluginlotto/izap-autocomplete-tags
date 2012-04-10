@@ -7,7 +7,7 @@
   <description> The plugin provide full Autotags functionality to elgg</description>
   <website>http://www.pluginlotto.com/store</website>
   <copyright>(C) iZAP Web Solutions</copyright>
-  <license>GNU Public License version</license>
+  <license>GNU Public License version 3</license>
 
   <requires>
     <type>elgg_version</type>
@@ -24,7 +24,10 @@
     <type>php_extension</type>
     <name>curl</name>
   </requires>
-
+  <screenshot>
+    <description>iZAP Auto Complete</description>
+    <path>_graphics/auto_complete.png</path>
+  </screenshot>
   <requires>
     <type>priority</type>
     <plugin>izap-elgg-bridge</plugin>
